@@ -3,6 +3,7 @@
 
 <head>
     <title>form</title>
+   
 </head>
 
 <body>
@@ -10,10 +11,10 @@
         <div class="form">
             <div class="w-100">
                 <h3 for="cars">عنوان :</h3>
-                <select class="w-100 input" name="cars" id="cars">
-                    <option value="volvo">مرد</option>
-                    <option value="saab">زن</option>
-                    <option value="mercedes">غیره</option>
+                <select class="w-100 input" name="title" id="cars">
+                    <option value="man">آقا</option>
+                    <option value="woman">خانم</option>
+                    <option value="other">غیره</option>
                 </select>
             </div>
             <div class="w-100">
@@ -36,119 +37,58 @@
                 <input id="email" onkeypress="validateEmail()" class="w-100 input" type="text" name="fname"><br><br>
             </div>
             <div class="w-100">
-                <h3 for="fname" id="number">شماره تلفن همراه :</h3>
-                <input class="w-100 input" type="text" name="fname"><br><br>
+                <h3 for="fname">شماره تلفن همراه :</h3>
+                <input onkeyup="mobileNumberChanged(event)" onkeypress="onlyEnglishNumbers(event);limitCharchters(11,'mobileNumberInput',event)" id="mobileNumberInput"
+                    class="w-100 input" type="text" name="fname"><br><br>
             </div>
             <div class="w-100">
                 <h3 for="fname">کد ملی :</h3>
-                <input class="w-100 input" type="text" name="fname"><br><br>
+                <input onkeypress=";onlyEnglishNumbers(event);limitCharchters(12,'nationalIdInput',event)"
+                    onkeyup="nationalCodeChanged(event)" id="nationalIdInput" class="w-100 input" type="text"
+                    name="fname"><br><br>
             </div>
             <div class="w-100">
                 <h3 for="fname"> رمز عبور :</h3>
-                <input class="w-100 input" type="text" name="fname"><br><br>
+                <input id="password" onkeypress="limitCharchters(24,'password',event);allEnglishCodes(event)"
+                    class="w-100 input" type="text" name="fname"><br><br>
             </div>
             <div class="w-100">
                 <h3 for="fname"> تایید رمز عبور :</h3>
-                <input class="w-100 input" type="text" name="fname"><br><br>
+                <input id="rePassword" class="w-100 input" type="text" name="fname"><br><br>
             </div>
             <div class="w-100">
                 <h3 for="fname"> آدرس :</h3>
-                <input class="w-100 input" type="text" name="fname"><br><br>
+                <input id="address" onkeypress="limitCharchters(250,'address',event);onlyPersian(event)"
+                    class="w-100 input" type="text" name="fname"><br><br>
             </div>
             <div class="w-100">
                 <h3 for="fname"> تاریخ تولد :</h3>
-                <input class="w-100 input" type="text" name="fname"><br><br>
+                <input onkeypress="limitCharchters(10,'birthDate',event)" onkeyup="birthDateChanged(event)"
+                    id="birthDate" class="w-100 input" type="text" name="fname"><br><br>
             </div>
             <div class="w-100">
-                <h3 for="fname"> وضعیت تاهل :</h3>
-                <input class="w-100 input" type="text" name="fname"><br><br>
+                <h3 for="cars">وضعیت تاهل :</h3>
+                <select id="marital" onchange="selectChanged('marital',event)" class="w-100 input" name="marital">
+                    <option value="married">متاهل</option>
+                    <option value="single">مجرد</option>
+                </select>
+            </div>
+            <div class="w-100">
+                <h3 for="cars"> علاقه مندی ها :</h3>
+                <select class="w-100 input" name="cars" id="cars">
+                    <option value="volvo">فوتبال</option>
+                    <option value="saab">سینما</option>
+                </select>
             </div>
 
-            <div class="w-100">
-                <h3 for="fname"> علاقه مندی ها :</h3>
-                <input class="w-100 input" type="text" name="fname"><br><br>
+            <div id="errors" class="errors">
+
             </div>
+
+            <button onclick="check()">ثبت نهایی</button>
         </div>
     </div>
 </body>
-
+ <link type="text/css" rel="stylesheet" href="main.css">
+ <script src="main.js"></script>
 </html>
-
-<script>
-    function onlyPersian(e) {
-        var aranicUnicodes = /^[\u0600-\u06FF\s]+$/;
-        if (aranicUnicodes.test(e.key)) {
-        }
-        else {
-            e.preventDefault();
-        }
-    }
-
-    function onlyEnglish(e) {
-        var englishUniCode = /^[A-Za-z][A-Za-z0-9]*$/;
-        if (englishUniCode.test(e.key)) {
-        }
-        else {
-            e.preventDefault();
-        }
-    }
-
-    function limitCharchters(limit, elementId, e) {
-        const elementValue = document.getElementById(elementId).value
-        if (elementValue.length >= limit) {
-            e.preventDefault()
-        }
-    }
-
-    function validateEmail() {
-        const value = document.getElementById('email').value
-        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        // return re.test(String(email).toLowerCase());
-        console.log(re.test(String(value).toLowerCase()))
-    }
-    function validatePhone(e) {
-        const value = document.getElementById('number').value
-        const re = /^\d{10}$/;
-        if(e.getElementById(re))
-    }
-
-</script>
-
-<style>
-    .container {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .form {
-        direction: rtl;
-    }
-
-    .d-flex {
-        display: flex;
-        flex-wrap: wrap;
-    }
-
-    .input {
-        height: 30px;
-        border-radius: 8px;
-    }
-
-    .w-100 {
-        width: 100%;
-    }
-
-    @media (min-width:800px) {
-        .form {
-            width: 70%;
-        }
-    }
-
-    @media (max-width:800px) {
-        .form {
-            width: 95%;
-        }
-    }
-</style>
